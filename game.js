@@ -16,7 +16,7 @@ fetch(
 )
     .then((res) => {
         // return res.json();
-        // console.log(res.json());
+        console.log(res.json());
         return res.json();
     })
     .then((loadedQuestions) => {
