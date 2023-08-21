@@ -12,7 +12,7 @@ let questionCounter = 0;
 let availableQuesions = [];
 let questions = [];
 fetch(
-    'http://localhost:3000'
+    'https://better-slug-bedclothes.cyclic.cloud'
 )
     .then((res) => {
         // return res.json();
