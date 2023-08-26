@@ -12,8 +12,9 @@ let questionCounter = 0;
 let availableQuesions = [];
 let questions = [];
 fetch(
-    'https://better-slug-bedclothes.cyclic.cloud'
+    // 'https://better-slug-bedclothes.cyclic.cloud'
     // 'http://localhost:3000'
+    'https://quizbackend.shubhamiitbhu.in/quiz'
 )
     .then((res) => {
         // return res.json();
