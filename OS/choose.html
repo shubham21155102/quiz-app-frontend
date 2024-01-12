@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quizzify</title>
+    <link rel="stylesheet" href="./app.css" />
+    <link rel="icon" type="image/jpg" href="./assets/logo.jpg">
+    <meta name="google-adsense-account" content="ca-pub-6714499173199533">
+</head>
+
+<body>
+    <div class="container">
+        <div id="home" class="flex-center flex-column">
+            <h3>How many Questions want to practice?</h3>
+            <br>
+            <input type="text" class="btn" name="questions" id="questions"
+                placeholder="How many Questions want to practice" />
+            <a class="btn" id="play" href="./game.html">Play</a>
+
+        </div>
+    </div>
+    <script>
+        const totalQuestion = document.getElementById("questions");
+        const playBtn = document.getElementById("play");
+
+        playBtn.addEventListener("click", () => {
+            sessionStorage.setItem("totalQuestionOS", totalQuestion.value);
+            window.location.assign("./game.html");
+        });
+    </script>
+</body>
+
+</html>
