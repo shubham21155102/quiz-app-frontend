@@ -11,6 +11,13 @@ let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
 let questions = [];
+let ttl = 50;
+try {
+    ttl = sessionStorage.getItem("totalQuestionOS");
+    console.log(ttl)
+} catch (err) {
+    console.log(err)
+}
 fetch(
     // 'https://better-slug-bedclothes.cyclic.cloud'
     // 'http://localhost:3000'
@@ -22,7 +29,7 @@ fetch(
         return res.json();
     })
     .then((loadedQuestions) => {
-        console.log("hii"+loadedQuestions)
+        console.log("hii" + loadedQuestions)
         questions = loadedQuestions.results.map((loadedQuestion) => {
             const formattedQuestion = {
                 question: loadedQuestion.question,
@@ -53,7 +60,7 @@ fetch(
 
 //CONSTANTS
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 50;
+const MAX_QUESTIONS = ttl;
 
 startGame = () => {
     questionCounter = 0;
