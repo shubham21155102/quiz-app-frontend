@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
 const AddQuestion = () => {
     const [department, setDepartment] = useState("CSE_DBMS");
     const [year, setYear] = useState("2025");
     const [image, setImage] = useState("null");
     const [question, setQuestion] = useState("");
-    const [options, setOptions] = useState({ A: "", B: "", C: "", D: "" });
+    const [options, setOptions] = useState<Record<string, string>>({ A: "", B: "", C: "", D: "" });
     const [answer, setAnswer] = useState("");
 
     const handleOptionChange = (key: string, value: string) => {
@@ -31,18 +32,20 @@ const AddQuestion = () => {
                     options,
                     answer
                 })
-            })
+            });
             const data = await res.json();
             console.log(data);
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
         alert("Question added successfully");
-    }
+    };
 
     return (
-        <div className="max-w-lg mx-auto p-6 shadow-md rounded-md text-black" style={{backgroundColor:"powderblue"}}>
-          <center> <h1 className="text-2xl font-bold mb-6">Add Question</h1></center> 
+        <div className="max-w-lg mx-auto p-6 shadow-md rounded-md text-black" style={{backgroundColor: "powderblue"}}>
+            <center> 
+                <h1 className="text-2xl font-bold mb-6">Add Question</h1>
+            </center> 
             <form onSubmit={addQuestion} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Department</label>
@@ -86,7 +89,7 @@ const AddQuestion = () => {
                             <label className="block text-sm font-medium text-gray-700">{`Option ${key}`}</label>
                             <input 
                                 type="text" 
-                                value={options[key as keyof typeof options]} 
+                                value={options[key]} 
                                 onChange={(e) => handleOptionChange(key, e.target.value)} 
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
@@ -112,7 +115,7 @@ const AddQuestion = () => {
                 </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default AddQuestion;
