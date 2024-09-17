@@ -26,6 +26,7 @@ const Questions = (props: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [correctOption, setCorrectOption] = useState<string | null>(null);
+  correctOption;
   const [score, setScore] = useState(0);
 
   useEffect(() => {
