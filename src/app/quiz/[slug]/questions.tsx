@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 type Props = {
   questions: datas[];
 };
@@ -13,12 +13,6 @@ type option_data = {
   C: string;
   D: string;
 };
-
-// type Datas = {
-//   question: string;
-//   options: OptionData;
-//   answer: string;
-// };
 const Questions = (props: Props) => {
   const { questions } = props;
 //   console.log(questions,"questions");
@@ -55,6 +49,8 @@ const Questions = (props: Props) => {
       setCorrectOption(null);
     }, 1000); // 10 seconds delay before moving to the next question
   };
+  useEffect(() => {
+  }, [questions]); // Ensure all dependencies are listed
 
   const currentQuestion:datas = questions[currentIndex];
 
