@@ -30,6 +30,7 @@ const Quiz = (props: Props) => {
     const [questionLoading, setQuestionLoading] = useState(true);
     const [questions_data, setQuestionsData] = useState<QuestionData[]>([]);
 
+
     const fetchQuestions = async () => {
         try {
             const res = await fetch(`https://api.shubhamiitbhu.in/gate?department=${encodeURIComponent(slug)}`, {
