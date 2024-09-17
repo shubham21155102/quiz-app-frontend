@@ -110,7 +110,8 @@ const Questions = (props: Props) => {
               <div className='h-[3.6rem] bg-[#56a5eb] w-0' style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}></div>
             </div>
           </div>
-          <p className="text-center text-2xl text-[5.4rem] text-[#56a5eb] mb-20">Time Left: {formatTime(timeLeft)}</p>
+         
+          <p className="text-2xl text-[#56a5eb] mb-20 font-bold">Time Left: {formatTime(timeLeft)}</p>
           <div className="flex flex-col items-center">
             <p className="text-center text-2xl">Score</p>
             <h1 className="text-[5.4rem] text-[#56a5eb] mb-20">{score}</h1>
