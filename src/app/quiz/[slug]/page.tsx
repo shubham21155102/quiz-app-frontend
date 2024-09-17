@@ -41,7 +41,7 @@ const Quiz = (props: any) => {
     useEffect(() => {
         questions();
 
-    },[questionLoading]);
+    },[questionLoading,questions_data]);
 
     return (
         <>
