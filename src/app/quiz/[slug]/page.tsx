@@ -2,12 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import {FidgetSpinner } from 'react-loader-spinner';
 import Questions from './questions';
-type Props={
-    params:{
-        slug:string
-    }
-}
-const Quiz = (props: Props) => {
+
+const Quiz = (props: any) => {
     const {slug} = props.params;
     console.log(slug);
     const [questionLoading, setQuestionLoading] = useState(true);
