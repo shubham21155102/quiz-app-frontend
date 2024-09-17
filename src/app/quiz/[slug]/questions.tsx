@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 type Props = {
-  questions: [];
+  questions: datas[];
 };
 type datas={
   question:string,
   options:option_data,
   answer:string
 }
-type option_data={
-  A:"A",
-  B:"B",
-  C:"C",
-  D:"D"
-}
+type option_data = {
+  A: string;
+  B: string;
+  C: string;
+  D: string;
+};
+
+// type Datas = {
+//   question: string;
+//   options: OptionData;
+//   answer: string;
+// };
 const Questions = (props: Props) => {
   const { questions } = props;
 //   console.log(questions,"questions");
