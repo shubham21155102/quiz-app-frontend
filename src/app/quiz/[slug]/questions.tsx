@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-type Option = {
-  text: string;
-};
 
 type Question = any
 // {
@@ -31,9 +28,9 @@ const Questions = (props: Props) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [correctOption, setCorrectOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-
+  correctOption
   const handleOptionClick = (id: string) => {
-    if (selectedOption) return; // Prevent multiple selections
+    if (selectedOption) return; 
 
     const currentQuestion = questions[currentIndex];
     const isCorrect = currentQuestion.answer === id;
