@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
-
-
-type Question = any
-// {
-//   question: string;
-//   options: {
-//     A: "";
-//     B: "";
-//     C: "";
-//     D: "";
-//   };
-//   answer: string;
-// };
-
 type Props = {
-  questions: Question[];
+  questions: [];
 };
-
+type datas={
+  question:string,
+  options:option_data,
+  answer:string
+}
+type option_data={
+  A:"A",
+  B:"B",
+  C:"C",
+  D:"D"
+}
 const Questions = (props: Props) => {
   const { questions } = props;
 //   console.log(questions,"questions");
-  questions.map((question:any)=>{
+  questions.map((question:datas)=>{
     console.log(question,"question");
     console.log(question.options.A,"options");
   })
@@ -32,8 +28,8 @@ const Questions = (props: Props) => {
   const handleOptionClick = (id: string) => {
     if (selectedOption) return; 
 
-    const currentQuestion = questions[currentIndex];
-    const isCorrect = currentQuestion.answer === id;
+    const currentQuestion:datas = questions[currentIndex];
+    const isCorrect = currentQuestion?.answer === id;
 
     setSelectedOption(id);
     if (isCorrect) {
@@ -54,7 +50,7 @@ const Questions = (props: Props) => {
     }, 1000); // 10 seconds delay before moving to the next question
   };
 
-  const currentQuestion = questions[currentIndex];
+  const currentQuestion:datas = questions[currentIndex];
 
   if (currentIndex === questions.length) {
     return (
@@ -67,7 +63,7 @@ const Questions = (props: Props) => {
     );
   }
 
-  const options = currentQuestion.options;
+  const options:option_data = currentQuestion.options;
   return (
     <div className="w-screen h-screen flex justify-center items-center max-w-[80rem] mx-auto p-8 text-black" style={{ backgroundColor: "#ecf5ff" }}>
       <div className="justify-center flex-column">
