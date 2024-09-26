@@ -30,7 +30,6 @@ const Quiz = (props: Props) => {
     const [questionLoading, setQuestionLoading] = useState(true);
     const [questions_data, setQuestionsData] = useState<QuestionData[]>([]);
 
-
     const fetchQuestions = async () => {
         try {
             const res = await fetch(`https://api.shubhamiitbhu.in/gate?department=${encodeURIComponent(slug)}`, {
@@ -50,22 +49,25 @@ const Quiz = (props: Props) => {
 
     useEffect(() => {
         fetchQuestions();
-    }, [slug]); // Only include 'slug' in the dependency array if it affects the fetch operation
+    }, [slug]);
 
     return (
         <>
             {questionLoading ? (
-                <div className="mx-auto p-6 shadow-md rounded-md text-black">
-                    <center>
-                        <div className="w-48 h-48 border-8 border-white border-t-[1.6rem] border-t-[#56a5eb] rounded-full animate-spin">
+                <div className="flex items-center justify-center min-h-screen bg-gray-100"> 
+                    <div className="flex flex-col items-center space-y-4">
+                        <div className="w-20 h-20">
                             <FidgetSpinner
                                 visible={true}
-                                height="80"
-                                width="80"
+                                height="100%"
+                                width="100%"
                                 ariaLabel="fidget-spinner-loading"
+                                ballColors={['#56a5eb', '#ffffff', '#56a5eb']} 
+                                backgroundColor="#333333" 
                             />
                         </div>
-                    </center>
+                        <p className="text-lg font-semibold text-gray-700">Loading questions...</p>
+                    </div>
                 </div>
             ) : (
                 <Questions questions={questions_data} />
