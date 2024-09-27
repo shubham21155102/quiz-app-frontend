@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 type Props = {
-  questions: datas[];
+  questions: QuestionData[];
 };
 
-type datas = {
+type QuestionData = {
   question: string;
-  options: option_data;
+  options: OptionData;
   answer: string;
 };
 
-type option_data = {
+type OptionData = {
   A: string;
   B: string;
   C: string;
@@ -20,13 +20,11 @@ type option_data = {
 const Questions = (props: Props) => {
   const { questions } = props;
 
-  // State for timer
-  const [timeLeft, setTimeLeft] = useState(90); // 90 seconds
+  const [timeLeft, setTimeLeft] = useState(90);
   const [timerEnded, setTimerEnded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [correctOption, setCorrectOption] = useState<string | null>(null);
-  correctOption;
   const [score, setScore] = useState(0);
 
   useEffect(() => {
@@ -35,12 +33,11 @@ const Questions = (props: Props) => {
       return;
     }
 
-    // Timer interval
     const timer = setInterval(() => {
       setTimeLeft(prevTime => prevTime - 1);
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(timer); // Ensure timer is cleared on unmount or dependency change
   }, [timeLeft]);
 
   useEffect(() => {
@@ -52,20 +49,22 @@ const Questions = (props: Props) => {
   const handleOptionClick = (id: string) => {
     if (selectedOption || timerEnded) return;
 
-    const currentQuestion: datas = questions[currentIndex];
+    const currentQuestion = questions[currentIndex];
     const isCorrect = currentQuestion?.answer === id;
 
     setSelectedOption(id);
+    setCorrectOption(currentQuestion.answer); // Show the correct answer
     if (isCorrect) {
-      setCorrectOption(id);
       setScore(prevScore => prevScore + 1);
+      setTimeout(() => {
+        handleNextQuestion();
+      }, 1000); // Move to the next question after 1 second
     } else {
-      setCorrectOption(currentQuestion.answer);
+      alert(`The correct answer is ${currentQuestion.answer}`);
+      setTimeout(() => {
+        handleNextQuestion();
+      }, 5000); // Wait for 5 seconds before moving to the next question
     }
-
-    setTimeout(() => {
-      handleNextQuestion();
-    }, 1000); // 1 second delay before moving to the next question
   };
 
   const handleNextQuestion = () => {
@@ -73,8 +72,6 @@ const Questions = (props: Props) => {
       setCurrentIndex(prevIndex => prevIndex + 1);
       setTimeLeft(90); // Reset timer for the next question
       setTimerEnded(false);
-    } else {
-      setCurrentIndex(questions.length);
     }
     setSelectedOption(null);
     setCorrectOption(null);
@@ -86,9 +83,9 @@ const Questions = (props: Props) => {
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
-  const currentQuestion: datas = questions[currentIndex];
+  const currentQuestion = questions[currentIndex];
 
-  if (currentIndex === questions.length) {
+  if (currentIndex >= questions.length) {
     return (
       <div className="w-screen h-screen flex justify-center items-center mx-auto p-8 text-black" style={{ backgroundColor: "#ecf5ff" }}>
         <div className="justify-center flex-column">
@@ -99,7 +96,7 @@ const Questions = (props: Props) => {
     );
   }
 
-  const options: option_data = currentQuestion.options;
+  const options = currentQuestion.options;
   return (
     <div className="w-screen h-screen flex justify-center items-center mx-auto p-8 text-black" style={{ backgroundColor: "#ecf5ff" }}>
       <div className="flex flex-col w-full h-full">
@@ -107,10 +104,9 @@ const Questions = (props: Props) => {
           <div className="flex flex-col">
             <p className="text-center text-2xl">Question {currentIndex + 1}/{questions.length}</p>
             <div className="w-80 h-16 border-4 border-[#56a5eb] mt-6">
-              <div className='h-[3.6rem] bg-[#56a5eb] w-0' style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}></div>
+              <div className='h-[3.6rem] bg-[#56a5eb]' style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}></div>
             </div>
           </div>
-         
           <p className="text-2xl text-[#56a5eb] mb-20 font-bold">Time Left: {formatTime(timeLeft)}</p>
           <div className="flex flex-col items-center">
             <p className="text-center text-2xl">Score</p>
@@ -121,7 +117,7 @@ const Questions = (props: Props) => {
         {Object.entries(options).map(([key, option]) => (
           <div
             key={key}
-            className={`flex mb-2 w-full text-xl border border-[#56a5eb]/25 bg-white hover:cursor-pointer hover:shadow-md hover:shadow-[#56b9eb]/50 hover:translate-y-[-0.1rem] hover:transition-transform hover:duration-150 ${selectedOption === key ? (key === currentQuestion.answer ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500') : ''}`}
+            className={`flex mb-2 w-full text-xl border border-[#56a5eb]/25 bg-white hover:cursor-pointer hover:shadow-md hover:shadow-[#56b9eb]/50 hover:translate-y-[-0.1rem] hover:transition-transform hover:duration-150 ${selectedOption === key ? (key === correctOption ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500') : ''}`}
             onClick={() => handleOptionClick(key)}
           >
             <p className="p-6 bg-[#56a5eb] text-white">{key}</p>
