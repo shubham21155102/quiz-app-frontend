@@ -141,16 +141,30 @@ const Questions = (props: Props) => {
           </div>
         </div>
         <h2 className='text-[3rem] font-bold text-center mb-8'>{currentQuestion.question}</h2>
-        {Object.entries(options).map(([key, option]) => (
-          <div
-            key={key}
-            className={`flex mb-2 w-full text-xl border border-[#56a5eb]/25 bg-white hover:cursor-pointer hover:shadow-md hover:shadow-[#56b9eb]/50 hover:translate-y-[-0.1rem] hover:transition-transform hover:duration-150 ${selectedOption === key ? (key === correctOption ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100') : ''}`}
-            onClick={() => handleOptionClick(key)}
-          >
-            <p className="p-6 bg-[#56a5eb] text-white">{key}</p>
-            <p className="p-6 w-full">{option}</p>
-          </div>
-        ))}
+        {Object.entries(options).map(([key, option]) => {
+  const questionStatus = map.get(currentIndex);
+  const isSelected = selectedOption === key;
+  const isCorrect = key === correctOption;
+  const isMarked = questionStatus?.markedOption === key;
+  let optionClass = 'flex mb-2 w-full text-xl border border-[#56a5eb]/25 bg-white hover:cursor-pointer hover:shadow-md hover:shadow-[#56b9eb]/50 hover:translate-y-[-0.1rem] hover:transition-transform hover:duration-150';
+
+  if (isSelected) {
+    optionClass += isCorrect ? ' bg-green-500 border-green-100' : ' bg-red-500 border-red-100';
+  } else if (isMarked) {
+    optionClass += isCorrect ? ' bg-green-500 border-green-100' : ' bg-red-500 border-red-100';
+  }
+
+  return (
+    <div
+      key={key}
+      className={optionClass}
+      onClick={() => handleOptionClick(key)}
+    >
+      <p className="p-6 bg-[#56a5eb] text-white">{key}</p>
+      <p className="p-6 w-full">{option}</p>
+    </div>
+  );
+})}
       </div>
     </div>
   );
