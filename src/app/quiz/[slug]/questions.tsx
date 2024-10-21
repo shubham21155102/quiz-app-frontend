@@ -17,7 +17,6 @@ type OptionData = {
   C: string;
   D: string;
 };
-
 const Questions = (props: Props) => {
   const { questions } = props;
   const [timeLeft, setTimeLeft] = useState(questions.length * 60);
@@ -26,9 +25,13 @@ const Questions = (props: Props) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [correctOption, setCorrectOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [map, setMap] = useState<Map<number, {solved: boolean, result: boolean, markedOption: string}>>(new Map());
+  const [map, setMap] = useState<Map<number, {solved: boolean, result: boolean, markedOption: string,currentScore:number}>>(new Map());
 
   useEffect(() => {
+    const cachedMap = localStorage.getItem('map');
+    if (cachedMap) {
+      // setMap(new Map(JSON.parse(cachedMap)));
+    }
     if (timeLeft === 0) {
       setTimerEnded(true);
       return;
@@ -52,9 +55,10 @@ const Questions = (props: Props) => {
     setCorrectOption(currentQuestion.answer);
     setMap(prevMap => {
       const newMap = new Map(prevMap);
-      newMap.set(currentIndex, { solved: true, result: isCorrect, markedOption: id });
+      newMap.set(currentIndex, { solved: true, result: isCorrect, markedOption: id,currentScore:score });
       return newMap;
     });
+    localStorage.setItem('map', JSON.stringify(Array.from(map.entries())));
 
     if (isCorrect) {
       setScore(prevScore => prevScore + 1);
