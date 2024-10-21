@@ -38,8 +38,29 @@ const Quiz = (props: Props) => {
                     "Content-Type": "application/json"
                 }
             });
+            // let questions=[
+            //     {
+            //         "id": "b56751e7-7ad4-41cd-b9bc-83f2e27c1a83",
+            //         "department": "CSE_OOPS",
+            //         "year": "2025",
+            //         "question": "Which of the following language was developed as the first purely object programming language?",
+            //         "image": "null",
+            //         "options": {
+            //             "A": "SmallTalk",
+            //             "B": "C++",
+            //             "C": "Kotlin",
+            //             "D": "Java"
+            //         },
+            //         "answer": "A"
+            //     }
+            // ]
+            // // push inside own
+            // questions.push(questions[0]);
+            // for(let i=0;i<50;i++) {
+            //     questions.push(questions[0]);
+            // }
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
             setQuestionsData(data);
             setQuestionLoading(false);
         } catch (e) {
